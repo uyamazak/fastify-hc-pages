@@ -1,8 +1,15 @@
 import { FastifyInstance } from 'fastify'
 import { launch, ChromeArgOptions, Page, Browser } from 'puppeteer'
 import fp from 'fastify-plugin'
-import type { HcPageConfig, RunOnPageCallback } from './types/hc-pages-plugin'
+import { HcPageConfig, RunOnPageCallback } from './types/hc-pages-plugin'
 
+const defaultHcPageConfig = {
+  pagesNum: 3,
+  userAgent: '',
+  pageTimeoutMilliseconds: 10000,
+  emulateMediaTypeScreenEnabled: false,
+  acceptLanguage: ''
+}
 export class HCPages {
   private pages: Page[]
   private readyPages: Page[]
@@ -10,20 +17,21 @@ export class HCPages {
   private config: HcPageConfig
   private browser: Browser
 
-  constructor(browser: Browser, config: HcPageConfig) {
-    this.config = config
+  constructor(browser: Browser, config: Partial<HcPageConfig>) {
+    this.config = {...defaultHcPageConfig, ...config}
     this.browser = browser
     this.pages = []
     this.readyPages = []
     this.currentPromises = []
   }
 
-  public static init = async (config: HcPageConfig): Promise<HCPages> => {
+  public static init = async (config: Partial<HcPageConfig>): Promise<HCPages> => {
     const launchOptions = HCPages.generateLaunchOptions()
     const browser = await launch(launchOptions)
     console.log(`browser.verison is ${(await browser.version())}`)
     const hcPages = new HCPages(browser, config)
     hcPages.pages = await hcPages.createPages()
+    hcPages.readyPages = hcPages.pages
     return hcPages
   }
 
@@ -89,8 +97,8 @@ export class HCPages {
     page.setDefaultNavigationTimeout(pageTimeoutMilliseconds)
     if (viewport) {
       await page.setViewport(viewport)
+      console.log(`viewport set ${JSON.stringify(page.viewport())}`)
     }
-    console.log(`viewport set ${JSON.stringify(page.viewport())}`)
     if (userAgent) {
       console.log(`user agent set ${userAgent}`)
       await page.setUserAgent(userAgent)
@@ -122,7 +130,7 @@ export class HCPages {
 
 async function plugin(
   fastify: FastifyInstance,
-  options: HcPageConfig,
+  options: Partial<HcPageConfig>,
   next: (err?: Error) => void
 ) {
   const hcPages = await HCPages.init(options)
@@ -132,13 +140,13 @@ async function plugin(
       return await hcPages.runOnPage(callback)
     }
   )
-  fastify.decorate('destroyHcPages', async () => {
+  fastify.decorate('destroyPages', async () => {
     await hcPages.destroy()
   })
   next()
 }
 
-const hcPagesPlugin = fp(plugin, {
+export const hcPagesPlugin = fp(plugin, {
   fastify: '^3.0.0',
   name: 'hc-pages-plugin',
 })
