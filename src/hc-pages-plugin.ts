@@ -17,7 +17,7 @@ export class HCPages {
   private config: HcPageConfig
   private browser: Browser
 
-  constructor(browser: Browser, config: Partial<HcPageConfig>) {
+  constructor(browser: Browser, config = {} as  Partial<HcPageConfig>) {
     this.config = {...defaultHcPageConfig, ...config}
     this.browser = browser
     this.pages = []

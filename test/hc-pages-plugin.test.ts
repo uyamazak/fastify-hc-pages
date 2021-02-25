@@ -9,8 +9,7 @@ const contentHtml = `<html><head><title>${titleString}</title></head><body></bod
 
 async function build(t: any) {
   const server = fastify()
-  server.register(hcPagesPlugin, {})
-  console.log('registerd')
+  server.register(hcPagesPlugin)
   server.get('/gettitle', async (_, reply) => {
     const result = await server.runOnPage<string>(async (page: Page) => {
       await page.setContent(
@@ -19,7 +18,6 @@ async function build(t: any) {
       )
       return await page.title()
     })
-    console.log(result)
     reply.send(result)
   })
   t.tearDown(async () => await server.destroyPages())
