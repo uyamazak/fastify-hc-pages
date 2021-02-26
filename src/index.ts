@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin'
 import { HCPages } from './hc-pages'
 import { FastifyInstance } from 'fastify'
-import { HcPagesPluginOptions, RunOnPageCallback } from './types/hc-pages'
+import { HcPagesPluginOptions, RunOnPageCallback } from '../types/hc-pages'
 
 async function plugin(
   fastify: FastifyInstance,

@@ -1,5 +1,5 @@
 import { launch, ChromeArgOptions, Page, Browser } from 'puppeteer'
-import { PageOptions, RunOnPageCallback } from './types/hc-pages'
+import { PageOptions, RunOnPageCallback } from '../types/hc-pages'
 
 const defaultPageOptions: PageOptions = {
   pagesNum: 3,
