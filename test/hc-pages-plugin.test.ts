@@ -2,7 +2,7 @@ import { test } from 'tap'
 import fastify from 'fastify'
 import { Page } from 'puppeteer'
 import { InjectOptions } from 'light-my-request'
-import { hcPagesPlugin } from '../src/'
+import { hcPagesPlugin } from '../src/index'
 
 const titleString = 'this is a test title'
 const contentHtml = `<html><head><title>${titleString}</title></head><body></body></html>`
