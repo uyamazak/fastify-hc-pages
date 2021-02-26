@@ -1,7 +1,7 @@
 {
   "name": "@uyamazak/fastify-hc-pages-plugin",
   "description": "A Fastify plugin that allows you to use Headless Chrome Pages with Puppeteer",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "uyamazak",
   "access": "public",
   "bugs": {
