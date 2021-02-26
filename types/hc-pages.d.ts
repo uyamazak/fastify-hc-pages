@@ -15,10 +15,3 @@ export interface PageOptions {
 }
 
 export type RunOnPageCallback<T> = (page: Page) => Promise<T>
-
-declare module 'fastify' {
-  interface FastifyInstance {
-    runOnPage<T>(callback: RunOnPageCallback<T>): Promise<T>
-    destroyPages(): Promise<void>
-  }
-}

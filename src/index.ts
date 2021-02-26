@@ -3,6 +3,13 @@ import { HCPages } from './hc-pages'
 import { FastifyInstance } from 'fastify'
 import { HcPagesPluginOptions, RunOnPageCallback } from '../types/hc-pages'
 
+declare module 'fastify' {
+  interface FastifyInstance {
+    runOnPage<T>(callback: RunOnPageCallback<T>): Promise<T>
+    destroyPages(): Promise<void>
+  }
+}
+
 async function plugin(
   fastify: FastifyInstance,
   options: HcPagesPluginOptions,
