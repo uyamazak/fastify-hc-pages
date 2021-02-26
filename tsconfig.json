@@ -8,8 +8,11 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
+    "typeRoots" : ["./types"],
     "outDir": "./dist",
     "baseUrl": "./",
+    "newLine": "LF",
+    "forceConsistentCasingInFileNames": true,
     "incremental": true
   }
 }
