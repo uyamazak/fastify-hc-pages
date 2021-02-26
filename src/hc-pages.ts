@@ -37,7 +37,7 @@ export class HCPages {
   }
 
   public static init = async (
-    pageOptions: Partial<PageOptions> | undefined,
+    pageOptions: Partial<PageOptions> | undefined = undefined,
     launchOptions: ChromeArgOptions | undefined = undefined
   ): Promise<HCPages> => {
     const browser = await launch(launchOptions ?? defaultLaunchOptions)

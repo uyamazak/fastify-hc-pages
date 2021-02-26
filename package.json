@@ -34,16 +34,16 @@
     "puppeteer"
   ],
   "license": "MIT",
-  "main": "dist/hc-pages-plugin.js",
+  "main": "dist/src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uyamazak/fastify-hc-pages-plugin.git"
   },
   "scripts": {
-    "build": "tsc -d",
+    "build": "rm -rf dist && tsc -d",
     "prepublishOnly": "npm run build",
     "test": "tap --timeout=30 test/**/*.test.ts",
     "lint": "eslint --fix ./src --ext ts"
   },
-  "types": "src/hc-pages-plugin.d.ts"
+  "types": "dist/src/index.d.ts"
 }
