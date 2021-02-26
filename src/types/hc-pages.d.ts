@@ -1,6 +1,11 @@
-import { Viewport, Page } from 'puppeteer'
+import { ChromeArgOptions, Viewport, Page } from 'puppeteer'
 
-export interface HcPageConfig {
+export interface HcPagesPluginOptions {
+  pageOptions?: PageOptions
+  launchOptions?: ChromeArgOptions
+}
+
+export interface PageOptions {
   pagesNum: number
   userAgent: string
   pageTimeoutMilliseconds: number

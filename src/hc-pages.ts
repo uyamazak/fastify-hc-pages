@@ -1,41 +1,54 @@
-import { FastifyInstance } from 'fastify'
 import { launch, ChromeArgOptions, Page, Browser } from 'puppeteer'
-import fp from 'fastify-plugin'
-import { HcPageConfig, RunOnPageCallback } from './types/hc-pages-plugin'
+import { PageOptions, RunOnPageCallback } from './types/hc-pages'
 
-const defaultHcPageConfig = {
+const defaultPageOptions: PageOptions = {
   pagesNum: 3,
   userAgent: '',
   pageTimeoutMilliseconds: 10000,
   emulateMediaTypeScreenEnabled: false,
-  acceptLanguage: ''
+  acceptLanguage: '',
 }
+
+const defaultLaunchOptions: ChromeArgOptions = {
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-gpu',
+    '--disable-dev-shm-usage',
+  ],
+}
+
 export class HCPages {
   private pages: Page[]
   private readyPages: Page[]
   private currentPromises: Promise<unknown>[]
-  private config: HcPageConfig
+  private options: PageOptions
   private browser: Browser
 
-  constructor(browser: Browser, config = {} as  Partial<HcPageConfig>) {
-    this.config = {...defaultHcPageConfig, ...config}
+  constructor(
+    browser: Browser,
+    options = {} as Partial<PageOptions> | undefined
+  ) {
+    this.options = { ...defaultPageOptions, ...options }
     this.browser = browser
     this.pages = []
     this.readyPages = []
     this.currentPromises = []
   }
 
-  public static init = async (config: Partial<HcPageConfig>): Promise<HCPages> => {
-    const launchOptions = HCPages.generateLaunchOptions()
-    const browser = await launch(launchOptions)
-    console.log(`browser.verison is ${(await browser.version())}`)
-    const hcPages = new HCPages(browser, config)
+  public static init = async (
+    pageOptions: Partial<PageOptions> | undefined,
+    launchOptions: ChromeArgOptions | undefined = undefined
+  ): Promise<HCPages> => {
+    const browser = await launch(launchOptions ?? defaultLaunchOptions)
+    console.log(`browser.verison is ${await browser.version()}`)
+    const hcPages = new HCPages(browser, pageOptions)
     hcPages.pages = await hcPages.createPages()
     hcPages.readyPages = hcPages.pages
     return hcPages
   }
 
-  async destroy(): Promise<void> {
+  public async destroy(): Promise<void> {
     await this.closePages()
     await this.closeBrowser()
   }
@@ -49,7 +62,7 @@ export class HCPages {
     return result
   }
 
-  async runOnPage<T>(callback: RunOnPageCallback<T>): Promise<T> {
+  public async runOnPage<T>(callback: RunOnPageCallback<T>): Promise<T> {
     let page = this.readyPages.pop()
     while (!page) {
       await Promise.race(this.currentPromises)
@@ -64,20 +77,9 @@ export class HCPages {
     return result
   }
 
-  static generateLaunchOptions(): ChromeArgOptions {
-    return {
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-gpu',
-        '--disable-dev-shm-usage',
-      ],
-    }
-  }
-
-  async createPages(): Promise<Page[]> {
+  private async createPages(): Promise<Page[]> {
     const pages = []
-    for (let i = 0; i < this.config.pagesNum; i++) {
+    for (let i = 0; i < this.options.pagesNum; i++) {
       const page = await this.browser.newPage()
       await this.applyPageConfigs(page)
       console.log(`page number ${i} is created`)
@@ -86,69 +88,47 @@ export class HCPages {
     return pages
   }
 
-  async applyPageConfigs(page: Page): Promise<void> {
+  private async applyPageConfigs(page: Page): Promise<void> {
     const {
       pageTimeoutMilliseconds,
       userAgent,
       emulateMediaTypeScreenEnabled,
       acceptLanguage,
       viewport,
-    } = this.config
-    page.setDefaultNavigationTimeout(pageTimeoutMilliseconds)
+    } = this.options
+    if (pageTimeoutMilliseconds) {
+      page.setDefaultNavigationTimeout(pageTimeoutMilliseconds)
+      console.log(`defaultNavigationTimeout set ${pageTimeoutMilliseconds}`)
+    }
     if (viewport) {
       await page.setViewport(viewport)
       console.log(`viewport set ${JSON.stringify(page.viewport())}`)
     }
     if (userAgent) {
-      console.log(`user agent set ${userAgent}`)
       await page.setUserAgent(userAgent)
+      console.log(`user agent set ${userAgent}`)
     }
     if (emulateMediaTypeScreenEnabled) {
-      console.log('emulateMediaType screen')
       await page.emulateMediaType('screen')
+      console.log('emulateMediaType screen')
     }
     if (acceptLanguage) {
-      console.log(`Accept-Language set: ${acceptLanguage}`)
       await page.setExtraHTTPHeaders({
         'Accept-Language': acceptLanguage,
       })
+      console.log(`Accept-Language set: ${acceptLanguage}`)
     }
   }
 
-  async closePages(): Promise<void> {
-    for (let i = 0; i < this.config.pagesNum; i++) {
+  private async closePages(): Promise<void> {
+    for (let i = 0; i < this.options.pagesNum; i++) {
       await this.pages[i].close()
       console.log(`page number ${i} is closed`)
     }
   }
 
-  async closeBrowser(): Promise<void> {
+  private async closeBrowser(): Promise<void> {
     await this.browser.close()
     console.log('browser is closed')
   }
 }
-
-async function plugin(
-  fastify: FastifyInstance,
-  options: Partial<HcPageConfig>,
-  next: (err?: Error) => void
-) {
-  const hcPages = await HCPages.init(options)
-  fastify.decorate(
-    'runOnPage',
-    async (callback: RunOnPageCallback<unknown>) => {
-      return await hcPages.runOnPage(callback)
-    }
-  )
-  fastify.decorate('destroyPages', async () => {
-    await hcPages.destroy()
-  })
-  next()
-}
-
-export const hcPagesPlugin = fp(plugin, {
-  fastify: '^3.0.0',
-  name: 'hc-pages-plugin',
-})
-
-export default hcPagesPlugin
