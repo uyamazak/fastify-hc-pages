@@ -7,7 +7,7 @@ import { hcPagesPlugin } from '../src/index'
 const titleString = 'this is a test title'
 const contentHtml = `<html><head><title>${titleString}</title></head><body></body></html>`
 
-async function build(t: any) {
+async function build(t) {
   const server = fastify()
   server.register(hcPagesPlugin)
   server.get('/gettitle', async (_, reply) => {

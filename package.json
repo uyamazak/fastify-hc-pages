@@ -43,7 +43,8 @@
     "build": "tsc",
     "prepublishOnly": "npm run build",
     "test": "tap --timeout=30 test/**/*.test.ts",
-    "lint": "eslint --fix  --ext ts"
+    "lint": "eslint ./ --ext ts",
+    "lint:fix": "eslint --fix ./ --ext ts"
   },
   "types": "dist/src/index.d.ts"
 }

@@ -11,4 +11,9 @@
     "newLine": "lf",
     "outDir": "./dist"
   },
+  "exclude": [
+    "node_modules",
+    "dist/**/*",
+    "test/**/*"
+  ]
 }
