@@ -40,7 +40,7 @@
     "url": "git+https://github.com/uyamazak/fastify-hc-pages-plugin.git"
   },
   "scripts": {
-    "build": "rm -rf dist && tsc -d",
+    "build": "tsc",
     "prepublishOnly": "npm run build",
     "test": "tap --timeout=30 test/**/*.test.ts",
     "lint": "eslint --fix  --ext ts"
