@@ -16,7 +16,7 @@ import { hcPagesPlugin } from '@uyamazak/fastify-hc-pages-plugin'
 
 const app = async () => {
   server.register(hcPagesPlugin)
-  // Work together with Page in callback function of runOnPage.
+  // Work together with Puppeteer's Page in callback function.
   server.get('/gettitle', async (_, reply) => {
     const result = await server.runOnPage<string>(async (page: Page) => {
       await page.setContent(contentHtml, { waitUntil: 'domcontentloaded' })
@@ -26,3 +26,15 @@ const app = async () => {
   })
 }
 ```
+
+# Contributing
+Pull requests, Issues, [GitHub Sponsors](https://github.com/sponsors/uyamazak/) are welcome.
+
+# Contributors ✨
+Thanks!
+
+[salos1982](https://github.com/salos1982) ([Pull Request](https://github.com/uyamazak/hc-pdf-server/pull/96))
+
+# Author
+[uyamazak](https://github.com/uyamazak)
+

@@ -10,11 +10,11 @@ declare module 'fastify' {
   }
 }
 
-async function plugin(
+export const plugin = async (
   fastify: FastifyInstance,
   options: HcPagesPluginOptions,
   next: (err?: Error) => void
-) {
+): Promise<void> => {
   const { pageOptions, launchOptions } = options
   const hcPages = await HCPages.init(pageOptions, launchOptions)
   fastify.decorate(
