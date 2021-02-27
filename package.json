@@ -9,10 +9,9 @@
   },
   "dependencies": {
     "fastify-plugin": "^3.0.0",
-    "puppeteer": "5.5.0"
+    "puppeteer": "8.0.0"
   },
   "devDependencies": {
-    "@types/puppeteer": "^5.4.3",
     "@types/tap": "^14.10.2",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",

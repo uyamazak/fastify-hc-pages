@@ -1,4 +1,4 @@
-import { launch, ChromeArgOptions, Page, Browser } from 'puppeteer'
+import { launch, BrowserLaunchArgumentOptions, Page, Browser } from 'puppeteer'
 import { PageOptions, RunOnPageCallback } from '../types/hc-pages'
 
 const defaultPageOptions: PageOptions = {
@@ -9,7 +9,7 @@ const defaultPageOptions: PageOptions = {
   acceptLanguage: '',
 }
 
-const defaultLaunchOptions: ChromeArgOptions = {
+const defaultLaunchOptions: BrowserLaunchArgumentOptions = {
   args: [
     '--no-sandbox',
     '--disable-setuid-sandbox',
@@ -38,7 +38,7 @@ export class HCPages {
 
   public static init = async (
     pageOptions: Partial<PageOptions> | undefined = undefined,
-    launchOptions: ChromeArgOptions | undefined = undefined
+    launchOptions: BrowserLaunchArgumentOptions | undefined = undefined
   ): Promise<HCPages> => {
     const browser = await launch(launchOptions ?? defaultLaunchOptions)
     console.log(`browser.verison is ${await browser.version()}`)
