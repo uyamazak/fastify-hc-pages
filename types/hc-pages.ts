@@ -1,8 +1,8 @@
-import { ChromeArgOptions, Viewport, Page } from 'puppeteer'
+import { BrowserLaunchArgumentOptions, Viewport, Page } from 'puppeteer'
 
 export interface HcPagesPluginOptions {
   pageOptions?: PageOptions
-  launchOptions?: ChromeArgOptions
+  launchOptions?: BrowserLaunchArgumentOptions
 }
 
 export interface PageOptions {
