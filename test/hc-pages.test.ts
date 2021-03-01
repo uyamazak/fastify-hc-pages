@@ -2,14 +2,14 @@ import { test } from 'tap'
 import fastify from 'fastify'
 import { Page } from 'puppeteer'
 import { InjectOptions } from 'light-my-request'
-import { hcPagesPlugin } from '../src/index'
+import { hcPages } from '../src/index'
 
 const titleString = 'this is a test title'
 const contentHtml = `<html><head><title>${titleString}</title></head><body></body></html>`
 
 async function build(t) {
   const server = fastify()
-  server.register(hcPagesPlugin)
+  server.register(hcPages)
   server.get('/gettitle', async (_, reply) => {
     const result = await server.runOnPage<string>(async (page: Page) => {
       await page.setContent(contentHtml, { waitUntil: 'domcontentloaded' })

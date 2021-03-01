@@ -1,6 +1,6 @@
 import { BrowserLaunchArgumentOptions, Viewport, Page } from 'puppeteer'
 
-export interface HcPagesPluginOptions {
+export interface HcPagesOptions {
   pageOptions?: PageOptions
   launchOptions?: BrowserLaunchArgumentOptions
 }

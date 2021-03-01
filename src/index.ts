@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin'
 import { HCPages } from './hc-pages'
 import { FastifyInstance } from 'fastify'
-import { HcPagesPluginOptions, RunOnPageCallback } from '../types/hc-pages'
+import { HcPagesOptions, RunOnPageCallback } from '../types/hc-pages'
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -12,7 +12,7 @@ declare module 'fastify' {
 
 export const plugin = async (
   fastify: FastifyInstance,
-  options: HcPagesPluginOptions,
+  options: HcPagesOptions,
   next: (err?: Error) => void
 ): Promise<void> => {
   const { pageOptions, launchOptions } = options
@@ -29,9 +29,9 @@ export const plugin = async (
   next()
 }
 
-export const hcPagesPlugin = fp(plugin, {
+export const hcPages = fp(plugin, {
   fastify: '^3.0.0',
   name: 'hc-pages-plugin',
 })
 
-export default hcPagesPlugin
+export default hcPages

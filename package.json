@@ -1,11 +1,11 @@
 {
-  "name": "@uyamazak/fastify-hc-pages-plugin",
+  "name": "@uyamazak/fastify-hc-pages",
   "description": "A Fastify plugin that allows you to use Headless Chrome Pages with Puppeteer",
   "version": "0.2.1",
   "author": "uyamazak",
   "access": "public",
   "bugs": {
-    "url": "https://github.com/uyamazak/fastify-hc-pages-plugin/issues"
+    "url": "https://github.com/uyamazak/fastify-hc-pages/issues"
   },
   "dependencies": {
     "fastify-plugin": "^3.0.0",
@@ -27,7 +27,7 @@
   "files": [
     "dist/**/*"
   ],
-  "homepage": "https://github.com/uyamazak/fastify-hc-pages-plugin#readme",
+  "homepage": "https://github.com/uyamazak/fastify-hc-pages#readme",
   "keywords": [
     "fastify",
     "puppeteer"
@@ -36,7 +36,7 @@
   "main": "dist/src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uyamazak/fastify-hc-pages-plugin.git"
+    "url": "git+https://github.com/uyamazak/fastify-hc-pages.git"
   },
   "scripts": {
     "build": "rm -rf ./dist && tsc",

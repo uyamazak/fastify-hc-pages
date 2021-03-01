@@ -1,21 +1,29 @@
-# fastify-hc-pages-plugin
-A plugin that allows you to use Headless Chrome Pages with Puppeteer from Fastify
+# fastify-hc-pages
+A plugin that allows you to use Headless Chrome Pages from [Fastify](https://www.fastify.io/) by [Puppeteer](https://pptr.dev/).
+
+Native TypeScript is supportted.
 
 This plugin was derived from the following repository.
 
 https://github.com/uyamazak/hc-pdf-server
 
 # Getting started
-Preparing.
+```
+npm i @uyamazak/fastify-hc-pages
+
+# OR
+
+yarn add @uyamazak/fastify-hc-pages
+```
 
 # Usage
 
 ```
 import fastify from 'fastify'
-import { hcPagesPlugin } from '@uyamazak/fastify-hc-pages-plugin'
+import { hcPages } from '@uyamazak/fastify-hc-pages'
 
 const app = async () => {
-  server.register(hcPagesPlugin)
+  server.register(hcPages)
   // Work together with Puppeteer's Page in callback function.
   server.get('/gettitle', async (_, reply) => {
     const result = await server.runOnPage<string>(async (page: Page) => {
