@@ -26,6 +26,10 @@ export const plugin = async (
   fastify.decorate('destroyPages', async () => {
     await hcPages.destroy()
   })
+  fastify.addHook('onClose', async (instance, done) => {
+    await instance.destroyPages()
+    done()
+  })
   next()
 }
 
