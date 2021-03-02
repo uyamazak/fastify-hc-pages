@@ -1,3 +1,6 @@
+[![npm version](https://badge.fury.io/js/%40uyamazak%2Ffastify-hc-pages.svg)](https://badge.fury.io/js/%40uyamazak%2Ffastify-hc-pages)
+[![ci](https://github.com/uyamazak/fastify-hc-pages/workflows/ci/badge.svg)](https://github.com/uyamazak/fastify-hc-pages/actions?query=workflow%3Aci)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
 # fastify-hc-pages
 A plugin that allows you to use Headless Chrome Pages from [Fastify](https://www.fastify.io/) by [Puppeteer](https://pptr.dev/).
 
