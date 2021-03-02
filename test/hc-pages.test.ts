@@ -17,7 +17,6 @@ async function build(t) {
     })
     reply.send(result)
   })
-  t.tearDown(async () => await server.destroyPages())
   t.tearDown(server.close.bind(server))
   return server
 }
