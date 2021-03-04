@@ -1,33 +1,6 @@
 import { test } from 'tap'
 import fastify from 'fastify'
-import { Page } from 'puppeteer'
-import { InjectOptions } from 'light-my-request'
 import { hcPages } from '../src/index'
-
-const titleString = 'this is a test title'
-const contentHtml = `<html><head><title>${titleString}</title></head><body></body></html>`
-
-/**
- *   pagesNum: number
-  userAgent: string
-  pageTimeoutMilliseconds: number
-  emulateMediaTypeScreenEnabled: boolean
-  acceptLanguage: string
-  viewport?: Viewport
-  */
-async function build(t) {
-  const server = fastify()
-  server.register(hcPages)
-  server.get('/gettitle', async (_, reply) => {
-    const result = await server.runOnPage<string>(async (page: Page) => {
-      await page.setContent(contentHtml, { waitUntil: 'domcontentloaded' })
-      return await page.title()
-    })
-    reply.send(result)
-  })
-  t.tearDown(server.close.bind(server))
-  return server
-}
 
 test('set pageNum 5', async (t) => {
   const server = fastify()
