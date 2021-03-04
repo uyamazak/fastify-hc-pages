@@ -1,12 +1,12 @@
 import { BrowserLaunchArgumentOptions, Viewport, Page } from 'puppeteer'
 
 export interface HcPagesOptions {
-  pageOptions?: PageOptions
+  pagesNum?: number
+  pageOptions?: Partial<PageOptions>
   launchOptions?: BrowserLaunchArgumentOptions
 }
 
 export interface PageOptions {
-  pagesNum: number
   userAgent: string
   pageTimeoutMilliseconds: number
   emulateMediaTypeScreenEnabled: boolean

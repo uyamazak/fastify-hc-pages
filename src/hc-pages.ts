@@ -1,8 +1,9 @@
 import { launch, BrowserLaunchArgumentOptions, Page, Browser } from 'puppeteer'
 import { PageOptions, RunOnPageCallback } from '../types/hc-pages'
 
+const defaultPagesNum = 3
+
 const defaultPageOptions: PageOptions = {
-  pagesNum: 3,
   userAgent: '',
   pageTimeoutMilliseconds: 10000,
   emulateMediaTypeScreenEnabled: false,
@@ -19,17 +20,20 @@ const defaultLaunchOptions: BrowserLaunchArgumentOptions = {
 }
 
 export class HCPages {
+  private pagesNum: number
   private pages: Page[]
   private readyPages: Page[]
   private currentPromises: Promise<unknown>[]
-  private options: PageOptions
+  private pageOptions: PageOptions
   private browser: Browser
 
   constructor(
     browser: Browser,
-    options = {} as Partial<PageOptions> | undefined
+    pagesNum = defaultPagesNum,
+    pageOptions = {} as Partial<PageOptions> | undefined
   ) {
-    this.options = { ...defaultPageOptions, ...options }
+    this.pagesNum = pagesNum
+    this.pageOptions = { ...defaultPageOptions, ...pageOptions }
     this.browser = browser
     this.pages = []
     this.readyPages = []
@@ -37,12 +41,13 @@ export class HCPages {
   }
 
   public static init = async (
+    pagesNum: number,
     pageOptions: Partial<PageOptions> | undefined = undefined,
     launchOptions: BrowserLaunchArgumentOptions | undefined = undefined
   ): Promise<HCPages> => {
     const browser = await launch(launchOptions ?? defaultLaunchOptions)
     console.log(`browser.verison is ${await browser.version()}`)
-    const hcPages = new HCPages(browser, pageOptions)
+    const hcPages = new HCPages(browser, pagesNum, pageOptions)
     hcPages.pages = await hcPages.createPages()
     hcPages.readyPages = hcPages.pages
     return hcPages
@@ -79,7 +84,7 @@ export class HCPages {
 
   private async createPages(): Promise<Page[]> {
     const pages = []
-    for (let i = 0; i < this.options.pagesNum; i++) {
+    for (let i = 0; i < this.pagesNum; i++) {
       const page = await this.browser.newPage()
       await this.applyPageConfigs(page)
       console.log(`page number ${i} is created`)
@@ -95,10 +100,10 @@ export class HCPages {
       emulateMediaTypeScreenEnabled,
       acceptLanguage,
       viewport,
-    } = this.options
+    } = this.pageOptions
     if (pageTimeoutMilliseconds) {
-      page.setDefaultNavigationTimeout(pageTimeoutMilliseconds)
-      console.log(`defaultNavigationTimeout set ${pageTimeoutMilliseconds}`)
+      page.setDefaultTimeout(pageTimeoutMilliseconds)
+      console.log(`defaultTimeout set ${pageTimeoutMilliseconds}`)
     }
     if (viewport) {
       await page.setViewport(viewport)
@@ -121,7 +126,7 @@ export class HCPages {
   }
 
   private async closePages(): Promise<void> {
-    for (let i = 0; i < this.options.pagesNum; i++) {
+    for (let i = 0; i < this.pagesNum; i++) {
       await this.pages[i].close()
       console.log(`page number ${i} is closed`)
     }

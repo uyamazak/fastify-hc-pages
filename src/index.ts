@@ -15,8 +15,8 @@ export const plugin = async (
   options: HcPagesOptions,
   next: (err?: Error) => void
 ): Promise<void> => {
-  const { pageOptions, launchOptions } = options
-  const hcPages = await HCPages.init(pageOptions, launchOptions)
+  const { pagesNum, pageOptions, launchOptions } = options
+  const hcPages = await HCPages.init(pagesNum, pageOptions, launchOptions)
   fastify.decorate(
     'runOnPage',
     async (callback: RunOnPageCallback<unknown>) => {
