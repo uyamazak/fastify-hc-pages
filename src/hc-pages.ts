@@ -29,7 +29,7 @@ export class HCPages {
 
   constructor(
     browser: Browser,
-    pagesNum = defaultPagesNum,
+    pagesNum: number,
     pageOptions = {} as Partial<PageOptions> | undefined
   ) {
     this.pagesNum = pagesNum
@@ -41,7 +41,7 @@ export class HCPages {
   }
 
   public static init = async (
-    pagesNum: number,
+    pagesNum = defaultPagesNum,
     pageOptions: Partial<PageOptions> | undefined = undefined,
     launchOptions: BrowserLaunchArgumentOptions | undefined = undefined
   ): Promise<HCPages> => {

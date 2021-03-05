@@ -7,7 +7,11 @@ import { hcPages } from '../src/index'
 const titleString = 'this is a test title'
 const contentHtml = `<html><head><title>${titleString}</title></head><body></body></html>`
 
-async function build(t) {
+interface Test {
+  tearDown(cb: unknown): unknown
+}
+
+async function build(t: Test) {
   const server = fastify()
   server.register(hcPages)
   server.get('/gettitle', async (_, reply) => {
