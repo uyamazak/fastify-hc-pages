@@ -42,7 +42,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "prepublishOnly": "npm run build",
-    "test": "tap --timeout=30 test/**/*.test.ts",
+    "test": "tap --timeout=60 test/**/*.test.ts",
     "lint": "eslint --fix ./ --ext ts"
   },
   "types": "dist/src/index.d.ts"
