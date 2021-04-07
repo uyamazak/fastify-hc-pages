@@ -8,7 +8,7 @@ const titleString = 'this is a test title'
 const contentHtml = `<html><head><title>${titleString}</title></head><body></body></html>`
 
 interface Test {
-  tearDown(cb: unknown): unknown
+  teardown(cb: unknown): unknown
 }
 
 async function build(t: Test) {
@@ -21,7 +21,7 @@ async function build(t: Test) {
     })
     reply.send(result)
   })
-  t.tearDown(server.close.bind(server))
+  t.teardown(server.close.bind(server))
   return server
 }
 

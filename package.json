@@ -12,7 +12,7 @@
     "puppeteer": "^8.0.0"
   },
   "devDependencies": {
-    "@tsconfig/node12": "^1.0.7",
+    "@tsconfig/node14": "^1.0.0",
     "@types/tap": "^14.10.2",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
@@ -22,7 +22,8 @@
     "eslint-plugin-prettier": "^3.3.1",
     "fastify": "^3.12.0",
     "prettier": "^2.2.1",
-    "tap": "^14.11.0",
+    "tap": "^15.0.2",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.2"
   },
   "files": [
@@ -42,7 +43,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "prepublishOnly": "npm run build",
-    "test": "tap --timeout=60 test/**/*.test.ts",
+    "test": "tap --ts --no-check-coverage --no-browser --timeout=60 test/**/*.test.ts",
     "lint": "eslint --fix ./ --ext ts"
   },
   "types": "dist/src/index.d.ts"
