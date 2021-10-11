@@ -46,7 +46,9 @@ export class HCPages {
     pageOptions: Partial<PageOptions> | undefined = undefined,
     launchOptions: BrowserLaunchArgumentOptions | undefined = undefined
   ): Promise<HCPages> => {
-    const browser = await puppeteer.launch(launchOptions ?? defaultLaunchOptions)
+    const browser = await puppeteer.launch(
+      launchOptions ?? defaultLaunchOptions
+    )
     console.log(`browser.verison is ${await browser.version()}`)
     const hcPages = new HCPages(browser, pagesNum, pageOptions)
     hcPages.pages = await hcPages.createPages()
