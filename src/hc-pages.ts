@@ -65,9 +65,15 @@ export class HCPages {
     page: Page,
     callback: RunOnPageCallback<T>
   ): Promise<T> {
-    const result = await callback(page)
-    this.readyPages.push(page)
-    return result
+    try {
+      const result = await callback(page)
+      this.readyPages.push(page)
+      return result
+    } catch (e) {
+      console.error(e)
+      this.readyPages.push(page)
+      throw e
+    }
   }
 
   public async runOnPage<T>(callback: RunOnPageCallback<T>): Promise<T> {
@@ -85,11 +91,16 @@ export class HCPages {
     return result
   }
 
+  private async createPage(): Promise<Page> {
+    const page = await this.browser.newPage()
+    await this.applyPageConfigs(page)
+    return page
+  }
+
   private async createPages(): Promise<Page[]> {
     const pages = []
     for (let i = 0; i < this.pagesNum; i++) {
-      const page = await this.browser.newPage()
-      await this.applyPageConfigs(page)
+      const page = await this.createPage()
       console.log(`page number ${i} is created`)
       pages.push(page)
     }
