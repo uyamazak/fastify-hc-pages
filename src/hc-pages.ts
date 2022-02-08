@@ -71,9 +71,7 @@ export class HCPages {
       return result
     } catch (e) {
       console.error(e)
-      await page.close()
-      const newPage = await this.createPage()
-      this.readyPages.push(newPage)
+      this.readyPages.push(page)
       throw e
     }
   }
