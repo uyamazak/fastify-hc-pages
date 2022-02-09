@@ -67,12 +67,12 @@ export class HCPages {
   ): Promise<T> {
     try {
       const result = await callback(page)
-      this.readyPages.push(page)
       return result
     } catch (e) {
       console.error(e)
-      this.readyPages.push(page)
       throw e
+    } finally {
+      this.readyPages.push(page)
     }
   }
 
@@ -85,10 +85,14 @@ export class HCPages {
 
     const promise = this.runCallback(page, callback)
     this.currentPromises.push(promise)
-    const result = await promise
-    this.currentPromises.splice(this.currentPromises.indexOf(promise), 1)
-
-    return result
+    try {
+      return await promise
+    } catch (e) {
+      console.error(e)
+      throw e
+    } finally {
+      this.currentPromises.splice(this.currentPromises.indexOf(promise), 1)
+    }
   }
 
   private async createPage(): Promise<Page> {
