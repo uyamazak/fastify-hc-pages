@@ -26,9 +26,10 @@ import fastify from 'fastify'
 import { hcPages } from '@uyamazak/fastify-hc-pages'
 
 const app = async () => {
+  const server = fastify()
   // Register this plugin
   server.register(hcPages)
-  
+
   // Work together with Puppeteer's Page in callback function.
   server.get('/gettitle', async (_, reply) => {
     // Make result you need in callback function with Page
