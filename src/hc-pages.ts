@@ -44,12 +44,13 @@ export class HCPages {
   public static init = async (
     pagesNum = defaultPagesNum,
     pageOptions: Partial<PageOptions> | undefined = undefined,
-    launchOptions: BrowserLaunchArgumentOptions | undefined = undefined
+    launchOptions?: BrowserLaunchArgumentOptions
   ): Promise<HCPages> => {
+    console.debug('launchOptions', launchOptions ?? defaultLaunchOptions)
     const browser = await puppeteer.launch(
       launchOptions ?? defaultLaunchOptions
     )
-    console.log(`browser.verison is ${await browser.version()}`)
+    console.debug(`browser.verison is ${await browser.version()}`)
     const hcPages = new HCPages(browser, pagesNum, pageOptions)
     hcPages.pages = await hcPages.createPages()
     hcPages.readyPages = hcPages.pages
