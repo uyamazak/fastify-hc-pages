@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "fastify-plugin": "^3.0.1",
-    "puppeteer": "^13.5.2"
+    "puppeteer": "^14.2.1"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.0",
