@@ -8,7 +8,7 @@
     "url": "https://github.com/uyamazak/fastify-hc-pages/issues"
   },
   "dependencies": {
-    "fastify-plugin": "^3.0.1",
+    "fastify-plugin": "^4.2.0",
     "puppeteer": "^14.2.1"
   },
   "devDependencies": {
