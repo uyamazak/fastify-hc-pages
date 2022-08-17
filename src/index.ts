@@ -17,6 +17,7 @@ export const plugin = async (
 ): Promise<void> => {
   const { pagesNum, pageOptions, launchOptions } = options
   const hcPages = await HCPages.init(pagesNum, pageOptions, launchOptions)
+
   fastify.decorate(
     'runOnPage',
     async (callback: RunOnPageCallback<unknown>) => {
@@ -34,7 +35,7 @@ export const plugin = async (
 }
 
 export const hcPages = fp(plugin, {
-  fastify: '^3.0.0',
+  fastify: '^4.0.0',
   name: 'hc-pages-plugin',
 })
 
