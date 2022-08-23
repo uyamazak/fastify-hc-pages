@@ -39,4 +39,4 @@ export const hcPages = fp(plugin, {
   name: 'hc-pages-plugin',
 })
 
-export default hcPages
+module.exports = hcPages
