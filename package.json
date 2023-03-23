@@ -1,15 +1,15 @@
 {
   "name": "@uyamazak/fastify-hc-pages",
   "description": "A Fastify plugin that allows you to use Headless Chrome Pages with Puppeteer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "uyamazak",
   "access": "public",
   "bugs": {
     "url": "https://github.com/uyamazak/fastify-hc-pages/issues"
   },
   "dependencies": {
-    "fastify-plugin": "^4.2.0",
-    "puppeteer": "^19.0.0"
+    "fastify-plugin": "^4.5.0",
+    "puppeteer": "^19.7.5"
   },
   "devDependencies": {
     "@tsconfig/node18": "^1.0.0",
@@ -20,7 +20,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^4.2.1",
-    "fastify": "^4.4.0",
+    "fastify": "^4.15.0",
     "prettier": "^2.7.1",
     "tap": "^16.0.1",
     "ts-node": "^10.9.1",
