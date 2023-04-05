@@ -13,11 +13,9 @@ declare module 'fastify' {
 export const plugin = async (
   fastify: FastifyInstance,
   options: HcPagesOptions,
-  next: (err?: Error) => void
 ): Promise<void> => {
   const { pagesNum, pageOptions, launchOptions } = options
   const hcPages = await HCPages.init(pagesNum, pageOptions, launchOptions)
-
   fastify.decorate(
     'runOnPage',
     async (callback: RunOnPageCallback<unknown>) => {
@@ -31,7 +29,6 @@ export const plugin = async (
     await instance.destroyPages()
     done()
   })
-  next()
 }
 
 export const hcPages = fp(plugin, {
