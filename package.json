@@ -8,11 +8,11 @@
     "url": "https://github.com/uyamazak/fastify-hc-pages/issues"
   },
   "dependencies": {
-    "fastify-plugin": "^4.23.2",
+    "fastify-plugin": "^4.5.1",
     "puppeteer": "^20.7.4"
   },
   "devDependencies": {
-    "@tsconfig/node18": "^18.2.2",
+    "@tsconfig/node20": "^20.1.2",
     "@types/tap": "^15.0.2",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
