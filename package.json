@@ -40,7 +40,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "prepublishOnly": "npm run build",
-    "test": "tap --ts --no-check-coverage --no-browser --timeout=60 test/**/*.test.ts",
+    "test": "tap -- --ts --no-check-coverage --no-browser --timeout=60 test/**/*.test.ts",
     "lint": "eslint --fix ./ --ext ts"
   },
   "types": "dist/src/index.d.ts"

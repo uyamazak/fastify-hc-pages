@@ -1,0 +1,46 @@
+TAP version 14
+launchOptions {
+  args: [
+    [32m'--no-sandbox'[39m,
+    [32m'--disable-setuid-sandbox'[39m,
+    [32m'--disable-gpu'[39m,
+    [32m'--disable-dev-shm-usage'[39m
+  ]
+}
+browser.verison is HeadlessChrome/114.0.5735.133
+defaultTimeout set 10000
+page number 0 is created
+defaultTimeout set 10000
+page number 1 is created
+defaultTimeout set 10000
+page number 2 is created
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+# Subtest: runOnPage success after many rejected
+    ok 1 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 2 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 3 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 4 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 5 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 6 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 7 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 8 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 9 - should be equal
+{"statusCode":500,"error":"Internal Server Error","message":"rejected"}
+    ok 10 - should be equal
+    ok 11 - should be equal
+    1..11
+ok 1 - runOnPage success after many rejected # time=2698.295ms
+
+page number 0 is closed
+page number 1 is closed
+page number 2 is closed
+browser is closed
+1..1
