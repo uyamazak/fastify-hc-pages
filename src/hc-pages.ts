@@ -12,6 +12,7 @@ const defaultPageOptions: PageOptions = {
 }
 
 const defaultLaunchOptions: BrowserLaunchArgumentOptions = {
+  headless: 'new',
   args: [
     '--no-sandbox',
     '--disable-setuid-sandbox',
