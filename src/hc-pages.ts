@@ -107,7 +107,7 @@ export class HCPages {
     const pages = []
     for (let i = 0; i < this.pagesNum; i++) {
       const page = await this.createPage()
-      console.log(`page number ${i} is created`)
+      console.debug(`page number ${i} is created`)
       pages.push(page)
     }
     return pages
@@ -123,32 +123,32 @@ export class HCPages {
     } = this.pageOptions
     if (pageTimeoutMilliseconds) {
       page.setDefaultTimeout(pageTimeoutMilliseconds)
-      console.log(`defaultTimeout set ${pageTimeoutMilliseconds}`)
+      console.debug(`defaultTimeout set ${pageTimeoutMilliseconds}`)
     }
     if (viewport) {
       await page.setViewport(viewport)
-      console.log(`viewport set ${JSON.stringify(page.viewport())}`)
+      console.debug(`viewport set ${JSON.stringify(page.viewport())}`)
     }
     if (userAgent) {
       await page.setUserAgent(userAgent)
-      console.log(`user agent set ${userAgent}`)
+      console.debug(`user agent set ${userAgent}`)
     }
     if (emulateMediaTypeScreenEnabled) {
       await page.emulateMediaType('screen')
-      console.log('emulateMediaType screen')
+      console.debug('emulateMediaType screen')
     }
     if (acceptLanguage) {
       await page.setExtraHTTPHeaders({
         'Accept-Language': acceptLanguage,
       })
-      console.log(`Accept-Language set: ${acceptLanguage}`)
+      console.debug(`Accept-Language set: ${acceptLanguage}`)
     }
   }
 
   private async closePages(): Promise<void> {
     for (let i = 0; i < this.pagesNum; i++) {
       await this.pages[i].close()
-      console.log(`page number ${i} is closed`)
+      console.debug(`page number ${i} is closed`)
     }
   }
 

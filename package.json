@@ -14,8 +14,8 @@
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
     "@types/tap": "^15.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
     "eslint": "^8.49.0",
     "eslint-plugin-import": "^2.28.1",
     "fastify": "^4.23.2",
@@ -40,7 +40,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "prepublishOnly": "npm run build",
-    "test": "tap --timeout=30 test/**/*.test.ts",
+    "test": "tap --jobs=2 --timeout=30 test/**/*.test.ts",
     "lint": "eslint --fix ./ --ext ts"
   },
   "types": "dist/src/index.d.ts"
