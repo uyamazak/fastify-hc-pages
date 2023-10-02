@@ -12,7 +12,7 @@ declare module 'fastify' {
 
 export const plugin = async (
   fastify: FastifyInstance,
-  options: HcPagesOptions,
+  options: HcPagesOptions
 ): Promise<void> => {
   const { pagesNum, pageOptions, launchOptions } = options
   const hcPages = await HCPages.init(pagesNum, pageOptions, launchOptions)
@@ -25,9 +25,8 @@ export const plugin = async (
   fastify.decorate('destroyPages', async () => {
     await hcPages.destroy()
   })
-  fastify.addHook('onClose', async (instance, done) => {
+  fastify.addHook('onClose', async (instance) => {
     await instance.destroyPages()
-    done()
   })
 }
 

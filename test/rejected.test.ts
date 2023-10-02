@@ -52,4 +52,5 @@ test('runOnPage success after many rejected', async (t) => {
     url: '/success',
   } as InjectOptions)
   t.equal(res.statusCode, 200)
+  t.end()
 })
