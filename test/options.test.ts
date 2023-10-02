@@ -6,45 +6,18 @@ interface Test {
   teardown(cb: unknown): unknown
 }
 
-test('set pageNum 5', async (t: Test) => {
+test('set options', async (t: Test) => {
   const server = fastify()
-  const options = { pagesNum: 5 }
+  const options = {
+    pagesNum: 5,
+    pageOptions: {
+      pageTimeoutMilliseconds: 30000,
+      userAgent: 'testUserAgentString',
+      emulateMediaTypeScreenEnabled: true,
+      acceptLanguage: 'ja',
+      viewport: { width: 1920, height: 1080 },
+    },
+  }
   await server.register(hcPages, options)
-  t.teardown(()=> server.close())
+  t.teardown(() => server.close())
 })
-/*
-test('set pageTimeoutMilliseconds', async (t: Test) => {
-  const server = fastify()
-  const options = { pageOptions: { pageTimeoutMilliseconds: 30000 } }
-  await server.register(hcPages, options)
-  t.teardown(()=> server.close())
-})
-
-test('set userAgent', async (t: Test) => {
-  const server = fastify()
-  const options = { pageOptions: { userAgent: 'testUserAgentString' } }
-  await server.register(hcPages, options)
-  t.teardown(()=> server.close())
-})
-
-test('set emulateMediaTypeScreenEnabled', async (t: Test) => {
-  const server = fastify()
-  const options = { pageOptions: { emulateMediaTypeScreenEnabled: true } }
-  await server.register(hcPages, options)
-  t.teardown(()=> server.close())
-})
-
-test('set acceptLanguage', async (t: Test) => {
-  const server = fastify()
-  const options = { pageOptions: { acceptLanguage: 'ja' } }
-  await server.register(hcPages, options)
-  t.teardown(()=> server.close())
-})
-
-test('set viewport', async (t: Test) => {
-  const server = fastify()
-  const options = { pageOptions: { viewport: { width: 1920, height: 1080 } } }
-  await server.register(hcPages, options)
-  t.teardown(()=> server.close())
-})
-*/
